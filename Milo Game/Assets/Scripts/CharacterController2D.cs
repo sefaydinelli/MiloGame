@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour
 {
+    public List<string> items;
+
     private const float MOVE_SPEED = 5f;
     private Rigidbody2D rb2d;
     private Vector3 moveDir;
@@ -26,8 +28,14 @@ public class CharacterController2D : MonoBehaviour
     {
         if (collision.CompareTag("Bones"))
         {
+            string itemName = collision.gameObject.GetComponent<Collectable>().itemName;
+            print(itemName + " collected.");
+
+            items.Add(itemName);
+            print("Collected item count : " + items.Count);
+
             Destroy(collision.gameObject);
-            print("Collected!");
+            
         }
     }
 }
