@@ -16,30 +16,18 @@ public class CharacterController2D : MonoBehaviour
 
     private void Update()
     {
-        //float moveX = 0f;
-        //float moveY = 0f;
-
-        //if (Input.GetKey(KeyCode.W))
-        //{
-        //    moveY = +1f;
-        //}
-        //if (Input.GetKey(KeyCode.S))
-        //{
-        //    moveY = -1f;
-        //}
-        //if (Input.GetKey(KeyCode.A))
-        //{
-        //    moveX = -1f;
-        //}
-        //if (Input.GetKey(KeyCode.D))
-        //{
-        //    moveX = +1f;
-        //}
-
         moveDir = new Vector3(joystick.Horizontal, joystick.Vertical).normalized;
     }
     private void FixedUpdate()
     {
         rb2d.velocity = moveDir * MOVE_SPEED;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bones"))
+        {
+            Destroy(collision.gameObject);
+            print("Collected!");
+        }
     }
 }
